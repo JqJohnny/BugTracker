@@ -11283,7 +11283,7 @@ footer.sticky-footer {
   flex-shrink: 0;
 }
 
-footer.sticky-footer .copyright {
+footer.sticky-footer .footer {
   line-height: 1;
   font-size: 0.8rem;
 }

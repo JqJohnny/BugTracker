@@ -67,7 +67,7 @@ var ctx = document.getElementById("ticketsByStatus");
 var pieStatus = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["New", "Initiated - In Progress", "Resolved"],
+    labels: ["New", "In Progress", "Resolved"],
     datasets: [{
       data: [9, 64, 243],
       backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
