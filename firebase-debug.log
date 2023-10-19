@@ -1,0 +1,35 @@
+[debug] [2023-10-19T12:41:03.133Z] ----------------------------------------------------------------------
+[debug] [2023-10-19T12:41:03.135Z] Command:       D:\Program Files\nodejs\node.exe C:\Users\Johnny\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2023-10-19T12:41:03.135Z] CLI Version:   12.6.2
+[debug] [2023-10-19T12:41:03.136Z] Platform:      win32
+[debug] [2023-10-19T12:41:03.136Z] Node Version:  v18.17.1
+[debug] [2023-10-19T12:41:03.137Z] Time:          Thu Oct 19 2023 05:41:03 GMT-0700 (Pacific Daylight Time)
+[debug] [2023-10-19T12:41:03.137Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-10-19T12:41:03.241Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-10-19T12:41:03.241Z] > authorizing via signed-in user (johnqdx@gmail.com)
+[debug] [2023-10-19T12:41:03.241Z] [iam] checking project bug-hunt-b860b for permissions ["firebase.projects.get"]
+[debug] [2023-10-19T12:41:03.247Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/bug-hunt-b860b:testIamPermissions [none]
+[debug] [2023-10-19T12:41:03.247Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/bug-hunt-b860b:testIamPermissions x-goog-quota-user=projects/bug-hunt-b860b
+[debug] [2023-10-19T12:41:03.247Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/bug-hunt-b860b:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-10-19T12:41:03.488Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/bug-hunt-b860b:testIamPermissions 200
+[debug] [2023-10-19T12:41:03.489Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/bug-hunt-b860b:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-10-19T12:41:03.489Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/bug-hunt-b860b [none]
+[debug] [2023-10-19T12:41:03.817Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/bug-hunt-b860b 200
+[debug] [2023-10-19T12:41:03.817Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/bug-hunt-b860b {"projectId":"bug-hunt-b860b","projectNumber":"648587053344","displayName":"Bug Hunt","name":"projects/bug-hunt-b860b","resources":{"hostingSite":"bug-hunt-b860b"},"state":"ACTIVE","etag":"1_8bcee0be-f5a2-4e4b-b2a4-3e7b317184b7"}
+[info] 
+[info] === Serving from 'E:\BugTracker'...
+[info] 
+[debug] [2023-10-19T12:41:03.822Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/bug-hunt-b860b/sites 
+[debug] [2023-10-19T12:41:04.498Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/bug-hunt-b860b/sites 200
+[debug] [2023-10-19T12:41:04.498Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/bug-hunt-b860b/sites {"sites":[{"name":"projects/bug-hunt-b860b/sites/bug-hunt-b860b","defaultUrl":"https://bug-hunt-b860b.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-10-19T12:41:04.498Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/bug-hunt-b860b/webApps/-/config [none]
+[debug] [2023-10-19T12:41:05.046Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/bug-hunt-b860b/webApps/-/config 200
+[debug] [2023-10-19T12:41:05.046Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/bug-hunt-b860b/webApps/-/config {"projectId":"bug-hunt-b860b","appId":"1:648587053344:web:a547a2d4294cdd24372f45","storageBucket":"bug-hunt-b860b.appspot.com","apiKey":"AIzaSyDu6ZEnmOvwj-n6VviffbrLgALNP5fnocI","authDomain":"bug-hunt-b860b.firebaseapp.com","messagingSenderId":"648587053344","measurementId":"G-1243JCXJFR"}
+[debug] [2023-10-19T12:41:05.052Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/bug-hunt-b860b [none]
+[debug] [2023-10-19T12:41:05.337Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/bug-hunt-b860b 200
+[debug] [2023-10-19T12:41:05.337Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/bug-hunt-b860b {"projectId":"bug-hunt-b860b","projectNumber":"648587053344","displayName":"Bug Hunt","name":"projects/bug-hunt-b860b","resources":{"hostingSite":"bug-hunt-b860b"},"state":"ACTIVE","etag":"1_8bcee0be-f5a2-4e4b-b2a4-3e7b317184b7"}
+[info] i  hosting[bug-hunt-b860b]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting[bug-hunt-b860b]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [19/Oct/2023:12:41:16 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [19/Oct/2023:12:41:16 +0000] \"GET / HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [19/Oct/2023:12:41:16 +0000] "GET /__/firebase/init.js?useEmulator=true HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [19/Oct/2023:12:41:16 +0000] \"GET /__/firebase/init.js?useEmulator=true HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36\""}}
