@@ -35,9 +35,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-b"></i>
+                    <i class="fas fa-bug"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Bug Hunt</div>
             </a>
@@ -47,7 +47,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="dashboard.html">
+                <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -362,64 +362,38 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">My Tickets</h1>
-                    <!-- DataTales Example -->
+                <div class="col-xl-12 col-lg-7">
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Project - Bug Hunt</h6>
+                        <div class="card-header">
+                            New Project
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Ticket Title</th>
-                                            <th>Ticket Description</th>
-                                            <th>Ticket Priority</th>
-                                            <th>Ticket Type</th>
-                                            <th>Ticket Author</th>
-                                            <th>Ticket Status</th>
-                                            <th>Creation Date - Age</th>
-                                            <th>Last Updated</th>
-                                            <th>Comments</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Ticket Title</th>
-                                            <th>Ticket Description</th>
-                                            <th>Ticket Priority</th>
-                                            <th>Ticket Type</th>
-                                            <th>Ticket Author</th>
-                                            <th>Ticket Status</th>
-                                            <th>Creation Date - Age</th>
-                                            <th>Last Updated</th>
-                                            <th>Comments</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Project Nav</td>
-                                            <td>Clicking on Project Nav does not work properly</td>
-                                            <td>Critical</td>
-                                            <td>Bug</td>
-                                            <td>Joe</td>
-                                            <td>In Progress</td>
-                                            <td>10/17/2023 - 1 Day Old</td>
-                                            <td>10/17/2023</td>
-                                            <td>Not a bug, hasn't been added yet.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <form>
+                                <div class="form-group">
+                                <label for="exampleInputEmail1">Project Name</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                </div>
+
+                                <div class="form-group">
+                                <label for="exampleInputPassword1">Add Contributors</label>
+                                <input type="password" class="form-control" id="contributors" placeholder="Joe James">
+                                </div>
+
+                                <div class="form-group" >
+                                <label for="exampleInputPassword1">Project Description</label>
+                                <textarea class="form-control" id="description" placeholder="Add a project description here."></textarea>
+                                </div>
+
+                                <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                                <div class="btn-create-project"><button type="submit" class="btn btn-primary">Create Project</button></div>
+                            </form>
                         </div>
                     </div>
-
-                </div>
                 <!-- /.container-fluid -->
+                </div>
 
             </div>
             <!-- End of Main Content -->
@@ -446,7 +420,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabdashboard.html="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

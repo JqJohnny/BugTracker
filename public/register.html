@@ -24,6 +24,7 @@
     <script defer src="/__/firebase/10.5.0/firebase-app-compat.js"></script>
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/10.5.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/10.5.2/firebase-firestore-compat.js"></script>
 
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 </head>
@@ -46,25 +47,25 @@
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="user-first"
-                                            placeholder="First Name">
+                                            placeholder="First Name" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" id="user-last"
-                                            placeholder="Last Name">
+                                            placeholder="Last Name" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="user-email"
-                                        placeholder="Email Address">
+                                        placeholder="Email Address" required>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user"
-                                            id="user-password" placeholder="Password">
+                                            id="user-password" placeholder="Password" autocomplete="off" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            id="user-confirmpassword" placeholder="Confirm Password">
+                                            id="user-confirm-password" placeholder="Confirm Password" autocomplete="off" required>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary btn-user btn-block">
