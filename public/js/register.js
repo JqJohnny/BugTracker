@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", event => {
             }).catch(function(error) {
                 console.log(error);
             });
+        } else{
+          alert('Passwords do not match.');
         }
     })
 });

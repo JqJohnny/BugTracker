@@ -25,12 +25,14 @@ document.addEventListener("DOMContentLoaded", event => {
             // Display Username
             document.getElementById('username').innerHTML = user.displayName;
 
+            let unresolved = 0;
+
             // Create Project Button
             const newProjectForm = document.querySelector('#create-project');
             newProjectForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const title = newProjectForm['project-title'].value;
-                const contributors = user.displayName + ', ' + newProjectForm['contributors'].value;
+                const contributors = user.displayName + ' ' + newProjectForm['contributors'].value;
                 const description = newProjectForm['description'].value;
 
                 async function setDocument(){
@@ -61,6 +63,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 const q = query(collection(db, "projects"), where("ownerUID", "==", user.uid));
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((docs) => {
+                unresolved += docs.data().ticketsFiled;
                 const projects = document.getElementById('projects');
                 let div = addDiv(null, 'card-body d-flex flex-row align-items-center justify-content-between');
                 let title = addDiv(docs.data().title, 'm-0 font-weight-bold text-primary w-25');
@@ -80,10 +83,14 @@ document.addEventListener("DOMContentLoaded", event => {
                 div.appendChild(description);
                 div.appendChild(button);
                 });
+                unresolve();
             }
 
             displayProject();
-
+            function unresolve() {
+                const unresolvedTickets = document.getElementById("unresolved-tickets");
+                unresolvedTickets.innerHTML = unresolved;
+            }
             // Sign Out Button
             const signOut = document.getElementById("sign-out");
             signOut.onclick = () => auth.signOut();

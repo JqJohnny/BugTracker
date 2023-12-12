@@ -38,7 +38,13 @@ document.addEventListener("DOMContentLoaded", event => {
                 });
             }
 
-            async function setPage() {
+            function addElement(text){
+                let element = document.createElement('td');
+                element.textContent = text;
+                return element;
+            }
+
+            async function loadDynamicElements() {
                 await retrieveData();
                 const projectID = localStorage.getItem('Project ID');
                 const docRef = doc(db, 'projects', projectID);
@@ -64,7 +70,8 @@ document.addEventListener("DOMContentLoaded", event => {
                             title: title,
                             priority: priority,
                             type: type,
-                            description: description
+                            description: description,
+                            author: user.displayName
                         });
 
                         const projectRef = doc(db, 'projects', docSnap.id);
@@ -76,9 +83,36 @@ document.addEventListener("DOMContentLoaded", event => {
                     }
                     setDocument();
                 });
+
+                // Add tickets
+                const q = query(collection(db, "projects", docSnap.id, 'tickets'));
+                const querySnapshot = await getDocs(q);
+                querySnapshot.forEach((docs) => {
+                const tickets = document.getElementById('tickets');
+                let ticketTitle = addElement(docs.data().title);
+                let ticketDescription = addElement(docs.data().description);
+                let ticketPriority = addElement(docs.data().priority);
+                let ticketType = addElement(docs.data().type);
+                let ticketAuthor = addElement(docs.data().author);
+                let ticketStatus = addElement('Open');
+                let ticketAge = addElement(Date());
+                let ticketModified = addElement(Date());
+                let ticketComment = addElement('');
+                let tableRow = document.createElement('tr');
+                tickets.appendChild(tableRow);
+                tickets.appendChild(ticketTitle);
+                tickets.appendChild(ticketDescription);
+                tickets.appendChild(ticketPriority);
+                tickets.appendChild(ticketType);
+                tickets.appendChild(ticketAuthor);
+                tickets.appendChild(ticketStatus);
+                tickets.appendChild(ticketAge);
+                tickets.appendChild(ticketModified);
+                tickets.appendChild(ticketComment);
+                });
             }
 
-            setPage()
+            loadDynamicElements();
 
             // Sign Out Button
             const signOut = document.getElementById("sign-out");
