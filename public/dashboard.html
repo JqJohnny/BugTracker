@@ -602,14 +602,16 @@ rel="stylesheet">
                           <div class="card shadow mb-4">
                               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                   <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                                  <div class="dropdown no-arrow">
                                       <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#newProjectModal"><i
                                           class="fas fa-folder-open"></i> New Project</a>
-                                  </div>
                               </div>
-                              <div class="card-body">
-                                  Projects Go Here
+                              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary w-25">Title</h6>
+                                <h6 class="m-0 font-weight-bold text-primary w-25">Contributors</h6>
+                                <h6 class="m-0 font-weight-bold text-primary w-100">Description</h6>
                               </div>
+                              <div id="projects">
+                            </div>
                           </div>
                       </div>
 
@@ -709,7 +711,7 @@ rel="stylesheet">
   <script src="vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/dashboard.js"></script>
+  <script type="module" src="./js/dashboard.js"></script>
   <script src="js/chart/chart-bar.js"></script>
   <script src="js/chart/chart-pie.js"></script>
   </body>
