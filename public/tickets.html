@@ -37,7 +37,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-b"></i>
+                    <i class="fas fa-bug"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Bug Hunt</div>
             </a>
@@ -329,7 +329,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Username</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username"></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -365,11 +365,14 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">My Tickets</h1>
+                    <!-- <h1 class="h3 mb-2 text-gray-800" id="title">My Tickets</h1> -->
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Project - Bug Hunt</h6>
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary" id="title"></h6>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#newTicketModal"><i
+                                class="fas fa-ticket-alt"></i> New Ticket</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -419,7 +422,6 @@
                     </div>
 
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
@@ -446,7 +448,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabdashboard.html="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="logoutModal" tabdashboard.html="-1" role="dialog" aria-labelledby="logoutModal"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -459,10 +461,57 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" id="sign-out" type="submit">Logout</a>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- New Project Modal-->
+    <div class="modal fade" id="newTicketModal" tabindex="-1" role="dialog" aria-labelledby="newTicketModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="projectModal">Create a Ticket</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form id="create-ticket" autocomplete="off">
+            <div class="form-group">
+            <label for="ticketTitle">Ticket Title</label>
+            <input type="text" class="form-control" id="ticket-title" aria-describedby="title", placeholder="Ticket Title" required>
+            </div>
+            <div class="form-group">
+            <label for="ticket priority">Ticket Priority</label>
+            <select class="form-control" id="ticket-priority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Critical">Critical</option>
+            </select>
+            </div>
+            <div class="form-group">
+            <div class="form-group">
+            <label for="ticket priority">Ticket Type</label>
+            <select class="form-control" id="ticket-type">
+                <option value="Bug">Bug</option>
+                <option value="Issue">Issue</option>
+                <option value="Feature Request">Feature Request</option>
+            </select>
+            </div>
+            <div class="form-group">
+            <label for="projectDescription">Ticket Description</label>
+            <textarea class="form-control" id="description" placeholder="Enter ticket description." required></textarea>
+            </div>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" type="submit">Create Ticket</button>
+            </form>
+            </div>
+        </div>
+    </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
@@ -480,6 +529,7 @@
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
+    <script type="module" src="./js/tickets.js"></script>
     <script src="js/demo/datatables-demo.js"></script>
 
 </body>
