@@ -1,7 +1,19 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
 document.addEventListener("DOMContentLoaded", event => {
-    const app = firebase.app();
-    const db = firebase.firestore();
-    const auth = firebase.auth();
+    const firebaseConfig = {
+      apiKey: "AIzaSyDu6ZEnmOvwj-n6VviffbrLgALNP5fnocI",
+      authDomain: "bug-hunt-b860b.firebaseapp.com",
+      projectId: "bug-hunt-b860b",
+      storageBucket: "bug-hunt-b860b.appspot.com",
+      messagingSenderId: "648587053344",
+      appId: "1:648587053344:web:a547a2d4294cdd24372f45",
+      measurementId: "G-1243JCXJFR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
     const signupForm = document.querySelector('#user-signup');
     signupForm.addEventListener('submit', (e) => {
@@ -16,9 +28,9 @@ document.addEventListener("DOMContentLoaded", event => {
 
         if(password === confirmPassword){
             // Sign up the user
-            firebase.auth().createUserWithEmailAndPassword(email, password).then(cred => {
+            createUserWithEmailAndPassword(auth, email, password).then(cred => {
                 const user = cred.user;
-                user.updateProfile({
+                updateProfile(auth.currentUser, {
                     displayName: first + ' ' + last,
                   }).then(() => {
                     window.location.href='login.html';                            

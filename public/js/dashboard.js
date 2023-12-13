@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, collection, setDoc, getDocs, doc, query, where, updateDoc} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
+import { getPerformance} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-performance.js";
 
 document.addEventListener("DOMContentLoaded", event => {
 
@@ -15,9 +16,9 @@ document.addEventListener("DOMContentLoaded", event => {
       };
 
     const app = initializeApp(firebaseConfig);
-    const auth = getAuth();
+    const auth = getAuth(app);
     const db = getFirestore(app);
-    
+    const perf = getPerformance(app);
 
     // Signed in
     onAuthStateChanged(auth, (user) => {
@@ -26,7 +27,8 @@ document.addEventListener("DOMContentLoaded", event => {
             document.getElementById('username').innerHTML = user.displayName;
 
             let unresolved = 0;
-
+            let ticketTotal = 0;
+            let ticketsComplete = 0;
             // Create Project Button
             const newProjectForm = document.querySelector('#create-project');
             newProjectForm.addEventListener('submit', (e) => {
@@ -44,7 +46,8 @@ document.addEventListener("DOMContentLoaded", event => {
                         description: description,
                         lastModified: Date(),
                         selected: false,
-                        ticketsFiled: 0
+                        ticketsFiled: 0,
+                        ticketsCompleted: 0
                     });
                     location.reload();
                 }
@@ -57,39 +60,53 @@ document.addEventListener("DOMContentLoaded", event => {
                 element.className = className;
                 return element;
             }
+            
 
             // Display Projects
             async function displayProject() {
                 const q = query(collection(db, "projects"), where("ownerUID", "==", user.uid));
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((docs) => {
-                unresolved += docs.data().ticketsFiled;
+                let ticketsFiled = docs.data().ticketsFiled;
+                let ticketsCompleted = docs.data().ticketsCompleted;
+                unresolved += ticketsFiled - ticketsCompleted;
+                ticketTotal += ticketsFiled;
+                ticketsComplete += ticketsCompleted;
                 const projects = document.getElementById('projects');
                 let div = addDiv(null, 'card-body d-flex flex-row align-items-center justify-content-between');
+                div.setAttribute('role', 'button');
+                div.setAttribute('id', 'redirect-to-project');
                 let title = addDiv(docs.data().title, 'm-0 font-weight-bold text-primary w-25');
                 let contributors = addDiv(docs.data().contributors, 'm-0 font-weight-bold text-primary w-25');
                 let description = addDiv(docs.data().description, 'm-0 font-weight-bold text-primary w-100');
-                let button = addDiv('Open', 'btn btn-primary');
-                button.setAttribute('type', 'button');
-                button.onclick = async function () {
-                const selectRef = doc(db, 'projects', docs.id);
-                await updateDoc(selectRef, {
-                selected: true
-                });
-                location.href = "tickets.html";};
                 projects.appendChild(div);
                 div.appendChild(title);
                 div.appendChild(contributors);
                 div.appendChild(description);
-                div.appendChild(button);
+                document.getElementById('redirect-to-project').onclick = async function (){
+                    const selectRef = doc(db, 'projects', docs.id);
+                    await updateDoc(selectRef, {
+                    selected: true
                 });
-                unresolve();
+                location.href = "tickets.html";
+                }
+                });
+                dashboard();
             }
 
             displayProject();
-            function unresolve() {
+
+            function dashboard() {
                 const unresolvedTickets = document.getElementById("unresolved-tickets");
                 unresolvedTickets.innerHTML = unresolved;
+
+                const progressBar = document.getElementById("progress-bar");
+                let percentage = Math.round((100 * ticketsComplete) / ticketTotal);
+                if (!isNaN(percentage)) {
+                    progressBar.innerHTML = percentage + '%';
+                    const bar = document.getElementById('progressBar');
+                    bar.setAttribute('style', 'width: ' + percentage +'%')
+                }
             }
             // Sign Out Button
             const signOut = document.getElementById("sign-out");

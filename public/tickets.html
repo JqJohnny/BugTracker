@@ -61,7 +61,7 @@
             </div>
 
             <!-- Nav Item - Tickets -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="tickets.html">
                     <i class="fas fa-fw fa-clipboard-list"></i>
                     <span>Tickets</span></a>
@@ -391,24 +391,11 @@
                                             <th>Ticket Type</th>
                                             <th>Ticket Author</th>
                                             <th>Ticket Status</th>
-                                            <th>Creation Date - Age</th>
+                                            <th>Publish Date</th>
                                             <th>Last Updated</th>
                                             <th>Comments</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Ticket Title</th>
-                                            <th>Ticket Description</th>
-                                            <th>Ticket Priority</th>
-                                            <th>Ticket Type</th>
-                                            <th>Ticket Author</th>
-                                            <th>Ticket Status</th>
-                                            <th>Creation Date - Age</th>
-                                            <th>Last Updated</th>
-                                            <th>Comments</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody id="tickets">
                                     </tbody>
                                 </table>
@@ -462,13 +449,13 @@
         </div>
     </div>
 
-    <!-- New Project Modal-->
+    <!-- New Ticket Modal-->
     <div class="modal fade" id="newTicketModal" tabindex="-1" role="dialog" aria-labelledby="newTicketModal"
     aria-hidden="true">
     <div class="modal-dialog modal-" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="projectModal">Create a Ticket</h5>
+                <h5 class="modal-title" id="ticketModal">Create a Ticket</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -489,7 +476,6 @@
             </select>
             </div>
             <div class="form-group">
-            <div class="form-group">
             <label for="ticket priority">Ticket Type</label>
             <select class="form-control" id="ticket-type">
                 <option value="Bug">Bug</option>
@@ -509,6 +495,66 @@
     </div>
     </div>
 
+    <!-- Edit Ticket Modal-->
+    <div class="modal fade" id="editTicketModal" tabindex="-1" role="dialog" aria-labelledby="editTicketModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editTicketModal">Edit Ticket</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form id="edit-ticket" autocomplete="off">
+            <div class="form-group">
+            <label for="editTicketTitle">Edit Ticket Title</label>
+            <input type="text" class="form-control" id="ticket-title" aria-describedby="title", placeholder="Enter Ticket Title" required>
+            </div>
+            <div class="form-group">
+            <label for="ticket-priority">Ticket Priority</label>
+            <select class="form-control" id="ticket-priority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Critical">Critical</option>
+            </select>
+            </div>
+            <div class="form-group">
+            <label for="ticket-type">Ticket Type</label>
+            <select class="form-control" id="ticket-type">
+                <option value="Bug">Bug</option>
+                <option value="Issue">Issue</option>
+                <option value="Feature Request">Feature Request</option>
+            </select>
+            </div>
+            <div class="form-group">
+                <label for="ticket-status">Ticket Status</label>
+                <select class="form-control" id="ticket-status">
+                    <option value="New">New</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+            </div>
+            <div class="form-group">
+            <label for="ticketDescription">Ticket Description</label>
+            <textarea class="form-control" id="description" placeholder="Enter ticket description." required></textarea>
+            </div>
+            <div class="form-group">
+            <label for="ticketComment">Comments</label>
+            <textarea class="form-control" id="comments" placeholder="Enter ticket comment."></textarea>
+            </div>
+            <input type="hidden" id="ticket-number" name="ticket-number" value="-1"/>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" type="submit">Submit Edit</button>
+            </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -525,7 +571,6 @@
 
     <!-- Page level custom scripts -->
     <script type="module" src="./js/tickets.js"></script>
-    <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 </html>

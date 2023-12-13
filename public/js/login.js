@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 document.addEventListener("DOMContentLoaded", event => {
 
@@ -11,36 +11,32 @@ document.addEventListener("DOMContentLoaded", event => {
         messagingSenderId: "648587053344",
         appId: "1:648587053344:web:a547a2d4294cdd24372f45",
         measurementId: "G-1243JCXJFR"
-      };
+    };
 
     const app = initializeApp(firebaseConfig);
-    const auth = getAuth();
+    const auth = getAuth(app);
 
-    defaultLogin()
-});
-
-function defaultLogin() {
-    const loginForm = document.querySelector('#login-account')
-
-    const email = loginForm['email-login'].value;
-    const password = loginForm['password-login'].value;
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    // Default Login Method
+    document.getElementById('defaultLogin').onclick = function (){
+        const loginForm = document.querySelector('#login-account');
+        const email = loginForm['email-login'].value;
+        const password = loginForm['password-login'].value;
+        signInWithEmailAndPassword(auth, email, password)
             .then(result => {
                 const user = result.user;
                 window.location.href='dashboard.html';
-                console.log(user)
             })
-            .catch(console.log)
-}
-
-function googleLogin() {
-    const provider = new GoogleAuthProvider()
-
-    signInWithPopup(auth, provider)
-        .then(result => {
-            const user = result.user;
-            window.location.href='dashboard.html';
-            console.log(user)
-        })
-        .catch(console.log)
-}
+            .catch(console.log);
+    };
+    
+    // Google Sign-In
+    document.getElementById('googleLogin').onclick = function (){
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then(result => {
+                const user = result.user;
+                window.location.href='dashboard.html';
+            })  
+            .catch(console.log);
+    };
+});
