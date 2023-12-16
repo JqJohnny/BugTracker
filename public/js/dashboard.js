@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 const projects = document.getElementById('projects');
                 let div = addDiv(null, 'card-body d-flex flex-row align-items-center justify-content-between');
                 div.setAttribute('role', 'button');
-                div.setAttribute('id', 'redirect-to-project');
+                div.setAttribute('id', docs.id);
                 let title = addDiv(docs.data().title, 'm-0 font-weight-bold text-primary w-25');
                 let contributors = addDiv(docs.data().contributors, 'm-0 font-weight-bold text-primary w-25');
                 let description = addDiv(docs.data().description, 'm-0 font-weight-bold text-primary w-100');
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 div.appendChild(title);
                 div.appendChild(contributors);
                 div.appendChild(description);
-                document.getElementById('redirect-to-project').onclick = async function (){
+                document.getElementById(docs.id).onclick = async function (){
                     const selectRef = doc(db, 'projects', docs.id);
                     await updateDoc(selectRef, {
                     selected: true
