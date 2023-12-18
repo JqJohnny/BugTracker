@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 const docRef = doc(db, 'projects', projectID);
                 const docSnap = await getDoc(docRef);
 
-                let statusOld;
+                let status;
 
                 // Set Title
                 const title = document.getElementById('title');
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 document.getElementById(docs.id).onclick = function (){
                     $("#editTicketModal").modal();
                     const editTicket = document.querySelector('#edit-ticket');
-                    statusOld = editTicket['ticket-status'].value;
+                    status = editTicket['ticket-status'].value;
                     editTicket['ticket-title'].value = docs.data().title;
                     editTicket['ticket-priority'].value = docs.data().priority;
                     editTicket['ticket-status'].value = docs.data().status;
@@ -142,15 +142,14 @@ document.addEventListener("DOMContentLoaded", event => {
                 const editTicket = document.querySelector('#edit-ticket');
                 editTicket.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    let status = editTicket['ticket-status'].value;
-                    if (status != statusOld && status === 'Resolved') {
+                    let statusUpdate = editTicket['ticket-status'].value;
+                    if(statusUpdate != status ){
                         const projectRef = doc(db, 'projects', docSnap.id);
-                        updateDoc(projectRef, {
-                            ticketsCompleted: docSnap.data().ticketsCompleted + 1
-                        });
-                    } else {
-                        if (status != statusOld && status != 'Resolved') {
-                            const projectRef = doc(db, 'projects', docSnap.id);
+                        if (statusUpdate === 'Resolved') {
+                            updateDoc(projectRef, {
+                                ticketsCompleted: docSnap.data().ticketsCompleted + 1
+                            });
+                        } else if (status === 'Resolved') {
                             updateDoc(projectRef, {
                                 ticketsCompleted: docSnap.data().ticketsCompleted - 1
                         })
@@ -163,7 +162,7 @@ document.addEventListener("DOMContentLoaded", event => {
                             priority: editTicket['ticket-priority'].value,
                             type: editTicket['ticket-type'].value,
                             description: editTicket['description'].value,
-                            status: status,
+                            status: statusUpdate,
                             lastUpdate: Date(),
                             comments: editTicket['comments'].value,
                             
