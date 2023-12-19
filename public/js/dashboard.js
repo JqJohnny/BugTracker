@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", event => {
             document.getElementById('username').innerHTML = user.displayName;
 
             let unresolved = 0;
+            // Tracks all projects
             let ticketTotal = 0;
             let ticketsComplete = 0;
             // Create Project Button
@@ -47,7 +48,9 @@ document.addEventListener("DOMContentLoaded", event => {
                         lastModified: Date(),
                         selected: false,
                         ticketsFiled: 0,
-                        ticketsCompleted: 0
+                        statusCounter: [0, 0, 0], // New, In Progress, Resolved
+                        priorityCounter: [0, 0, 0, 0], // Low, Medium, High, Critical
+                        typeCounter: [0, 0, 0], // Bug, Issue, Feature Request
                     });
                     location.reload();
                 }
@@ -68,10 +71,10 @@ document.addEventListener("DOMContentLoaded", event => {
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((docs) => {
                 let ticketsFiled = docs.data().ticketsFiled;
-                let ticketsCompleted = docs.data().ticketsCompleted;
-                unresolved += ticketsFiled - ticketsCompleted;
+                let ticketsResolved = docs.data().ticketsResolved;
+                unresolved += ticketsFiled - ticketsResolved;
                 ticketTotal += ticketsFiled;
-                ticketsComplete += ticketsCompleted;
+                ticketsComplete += ticketsResolved;
                 const projects = document.getElementById('projects');
                 let div = addDiv(null, 'card-body d-flex flex-row align-items-center justify-content-between');
                 div.setAttribute('role', 'button');
@@ -91,6 +94,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 location.href = "tickets.html";
                 }
                 });
+                // docs.data().
                 dashboard();
             }
 
@@ -107,6 +111,8 @@ document.addEventListener("DOMContentLoaded", event => {
                     const bar = document.getElementById('progressBar');
                     bar.setAttribute('style', 'width: ' + percentage +'%')
                 }
+
+                
             }
             // Sign Out Button
             const signOut = document.getElementById("sign-out");

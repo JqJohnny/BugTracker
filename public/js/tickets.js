@@ -82,13 +82,28 @@ document.addEventListener("DOMContentLoaded", event => {
                             comments: ''
                         });
 
+
+
                         // Ticket Counter
                         const projectRef = doc(db, 'projects', docSnap.id);
+                        let statusArray = docSnap.data().statusCounter;
+                        ++statusArray[0];
+                        let priorityArray = docSnap.data().priorityCounter;
+                        if(priority === 'Low') ++priorityArray[0];
+                        else if(priority === 'Medium') ++priorityArray[1];
+                        else if(priority === 'High') ++priorityArray[2];
+                        else if(priority === 'Critical') ++priorityArray[3];
+                        let typeArray = docSnap.data().typeCounter;
+                        if(type === 'Bug') ++typeArray[0];
+                        else if(type === 'Issue') ++typeArray[1];
+                        else if(type === 'Feature Request') ++typeArray[2];
                         updateDoc(projectRef, {
-                            ticketsFiled: tickets + 1
+                            ticketsFiled: tickets + 1,
+                            statusCounter: statusArray,
+                            priorityCounter: priorityArray,
+                            typeCounter: typeArray
                         });
-                        
-                        location.reload();
+                        location.reload()
                     }
                     setDocument();
                 });
@@ -147,11 +162,11 @@ document.addEventListener("DOMContentLoaded", event => {
                         const projectRef = doc(db, 'projects', docSnap.id);
                         if (statusUpdate === 'Resolved') {
                             updateDoc(projectRef, {
-                                ticketsCompleted: docSnap.data().ticketsCompleted + 1
+                                ticketsResolved: docSnap.data().ticketsResolved + 1
                             });
                         } else if (status === 'Resolved') {
                             updateDoc(projectRef, {
-                                ticketsCompleted: docSnap.data().ticketsCompleted - 1
+                                ticketsResolved: docSnap.data().ticketsResolved - 1
                         })
                     }}
 
@@ -167,7 +182,7 @@ document.addEventListener("DOMContentLoaded", event => {
                             comments: editTicket['comments'].value,
                             
                         });
-                    
+                    // Possible Change, don't reload create a function for update? innerhtml etc.
                         location.reload();
                     }
                     updateDocument();
