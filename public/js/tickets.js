@@ -137,27 +137,30 @@ document.addEventListener("DOMContentLoaded", event => {
                 tableRow.appendChild(ticketComments);
 
                 // Edit tickets
+                const editTicket = document.querySelector('#edit-ticket');
                 document.getElementById(docs.id).onclick = function (){
                     $("#editTicketModal").modal();
-                    const editTicket = document.querySelector('#edit-ticket');
+                    console.log(editTicket['ticket-status'].value);
                     status = editTicket['ticket-status'].value;
                     editTicket['ticket-title'].value = docs.data().title;
                     editTicket['ticket-priority'].value = docs.data().priority;
                     editTicket['ticket-status'].value = docs.data().status;
                     editTicket['ticket-type'].value = docs.data().type;
                     editTicket['description'].value = docs.data().description;
-                    if (docs.data().comments != undefined) {
-                        editTicket['comments'].value = docs.data().comments;
-                    }
+                    if (docs.data().comments != undefined) editTicket['comments'].value = docs.data().comments;
                     editTicket['ticket-number'].value = docs.id;
                 }
                 });
                 
                 // Submit Edit
+                // UPDATE WITH COUNTERS
+                // Take the value from edit ticket and save it, for use later
+                // Might be able to share, for optimization?
                 const editTicket = document.querySelector('#edit-ticket');
                 editTicket.addEventListener('submit', (e) => {
                     e.preventDefault();
                     let statusUpdate = editTicket['ticket-status'].value;
+                    console.log(statusUpdate);
                     if(statusUpdate != status ){
                         const projectRef = doc(db, 'projects', docSnap.id);
                         if (statusUpdate === 'Resolved') {
@@ -165,7 +168,7 @@ document.addEventListener("DOMContentLoaded", event => {
                                 ticketsResolved: docSnap.data().ticketsResolved + 1
                             });
                         } else if (status === 'Resolved') {
-                            updateDoc(projectRef, {
+                            updateDoc(projectRef, {     
                                 ticketsResolved: docSnap.data().ticketsResolved - 1
                         })
                     }}

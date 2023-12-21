@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", event => {
         const password = loginForm['password-login'].value;
         signInWithEmailAndPassword(auth, email, password)
             .then(result => {
-                const user = result.user;
                 window.location.href='dashboard.html';
             })
             .catch(console.log);
@@ -34,7 +33,6 @@ document.addEventListener("DOMContentLoaded", event => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
             .then(result => {
-                const user = result.user;
                 window.location.href='dashboard.html';
             })  
             .catch(console.log);
