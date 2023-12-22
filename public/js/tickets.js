@@ -60,6 +60,9 @@ document.addEventListener("DOMContentLoaded", event => {
 
                 // Create a new ticket
                 const newTicket = document.querySelector('#create-ticket');
+                let statusArray = docSnap.data().statusCounter;
+                let priorityArray = docSnap.data().priorityCounter;
+                let typeArray = docSnap.data().typeCounter;
                 newTicket.addEventListener('submit', (e) => {
                     e.preventDefault();
                     const title = newTicket['ticket-title'].value;
@@ -86,14 +89,11 @@ document.addEventListener("DOMContentLoaded", event => {
 
                         // Ticket Counter
                         const projectRef = doc(db, 'projects', docSnap.id);
-                        let statusArray = docSnap.data().statusCounter;
                         ++statusArray[0];
-                        let priorityArray = docSnap.data().priorityCounter;
-                        if(priority === 'Low') ++priorityArray[0];
-                        else if(priority === 'Medium') ++priorityArray[1];
-                        else if(priority === 'High') ++priorityArray[2];
+                        if(priority === 'Low') ++priorityArray[0]
+                        else if(priority === 'Medium') ++priorityArray[1]
+                        else if(priority === 'High') ++priorityArray[2]
                         else if(priority === 'Critical') ++priorityArray[3];
-                        let typeArray = docSnap.data().typeCounter;
                         if(type === 'Bug') ++typeArray[0];
                         else if(type === 'Issue') ++typeArray[1];
                         else if(type === 'Feature Request') ++typeArray[2];
@@ -140,15 +140,30 @@ document.addEventListener("DOMContentLoaded", event => {
                 const editTicket = document.querySelector('#edit-ticket');
                 document.getElementById(docs.id).onclick = function (){
                     $("#editTicketModal").modal();
-                    console.log(editTicket['ticket-status'].value);
-                    status = editTicket['ticket-status'].value;
+                    editTicket['ticket-number'].value = docs.id;
                     editTicket['ticket-title'].value = docs.data().title;
                     editTicket['ticket-priority'].value = docs.data().priority;
                     editTicket['ticket-status'].value = docs.data().status;
                     editTicket['ticket-type'].value = docs.data().type;
                     editTicket['description'].value = docs.data().description;
                     if (docs.data().comments != undefined) editTicket['comments'].value = docs.data().comments;
-                    editTicket['ticket-number'].value = docs.id;
+
+                    let status = editTicket['ticket-status'].value;
+                    let priority = editTicket['ticket-priority'].value;
+                    let type = editTicket['ticket-type'].value;
+                    statusArray = docSnap.data().statusCounter;
+                    priorityArray = docSnap.data().priorityCounter;
+                    typeArray = docSnap.data().typeCounter;
+                    if (status === 'New') --statusArray[0];
+                    else if (status === 'In Progress') --statusArray[1];
+                    else if (status === 'Resolved') --statusArray[2];
+                    if(priority === 'Low') --priorityArray[0];
+                    else if(priority === 'Medium') --priorityArray[1];
+                    else if(priority === 'High') --priorityArray[2];
+                    else if(priority === 'Critical') --priorityArray[3];
+                    if(type === 'Bug') --typeArray[0];
+                    else if(type === 'Issue') --typeArray[1];
+                    else if(type === 'Feature Request') --typeArray[2];         
                 }
                 });
                 
@@ -159,19 +174,26 @@ document.addEventListener("DOMContentLoaded", event => {
                 const editTicket = document.querySelector('#edit-ticket');
                 editTicket.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    let statusUpdate = editTicket['ticket-status'].value;
-                    console.log(statusUpdate);
-                    if(statusUpdate != status ){
-                        const projectRef = doc(db, 'projects', docSnap.id);
-                        if (statusUpdate === 'Resolved') {
-                            updateDoc(projectRef, {
-                                ticketsResolved: docSnap.data().ticketsResolved + 1
-                            });
-                        } else if (status === 'Resolved') {
-                            updateDoc(projectRef, {     
-                                ticketsResolved: docSnap.data().ticketsResolved - 1
-                        })
-                    }}
+
+                    const projectRef = doc(db, 'projects', docSnap.id);
+                    let status = editTicket['ticket-status'].value;
+                    let priority = editTicket['ticket-priority'].value;
+                    let type = editTicket['ticket-type'].value;
+                    if (status === 'New') ++statusArray[0];
+                    else if (status === 'In Progress') ++statusArray[1];
+                    else if (status === 'Resolved') ++statusArray[2];
+                    if(priority === 'Low') ++priorityArray[0];
+                    else if(priority === 'Medium') ++priorityArray[1];
+                    else if(priority === 'High') ++priorityArray[2];
+                    else if(priority === 'Critical') ++priorityArray[3];
+                    if(type === 'Bug') ++typeArray[0];
+                    else if(type === 'Issue') ++typeArray[1];
+                    else if(type === 'Feature Request') ++typeArray[2];
+                    updateDoc(projectRef, {
+                        statusCounter: statusArray,
+                        priorityCounter: priorityArray,
+                        typeCounter: typeArray
+                    });
 
                     async function updateDocument(){
                         const subRef = doc(db, 'projects', docSnap.id, 'tickets', String(editTicket['ticket-number'].value));
@@ -180,7 +202,7 @@ document.addEventListener("DOMContentLoaded", event => {
                             priority: editTicket['ticket-priority'].value,
                             type: editTicket['ticket-type'].value,
                             description: editTicket['description'].value,
-                            status: statusUpdate,
+                            status: status,
                             lastUpdate: Date(),
                             comments: editTicket['comments'].value,
                             

@@ -69,10 +69,11 @@ document.addEventListener("DOMContentLoaded", event => {
             async function displayProject() {
                 const q = query(collection(db, "projects"), where("ownerUID", "==", user.uid));
                 const querySnapshot = await getDocs(q);
+                // Computes the tickets for all projects
                 querySnapshot.forEach((docs) => {
                 let ticketsFiled = docs.data().ticketsFiled;
-                let ticketsResolved = docs.data().ticketsResolved;
-                unresolved += ticketsFiled - ticketsResolved;
+                let ticketsResolved = docs.data().statusCounter[2];
+                unresolved += docs.data().statusCounter[1] + docs.data().statusCounter[0];
                 ticketTotal += ticketsFiled;
                 ticketsComplete += ticketsResolved;
                 const projects = document.getElementById('projects');
@@ -94,7 +95,6 @@ document.addEventListener("DOMContentLoaded", event => {
                 location.href = "tickets.html";
                 }
                 });
-                // docs.data().
                 dashboard();
             }
 
