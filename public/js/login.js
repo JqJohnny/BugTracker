@@ -25,7 +25,16 @@ document.addEventListener("DOMContentLoaded", event => {
             .then(result => {
                 window.location.href='dashboard.html';
             })
-            .catch(console.log);
+            .catch(error => {
+            if (error.code === 'auth/user-not-found') {
+                console.log('There no user exist with that email');
+            }
+        
+            if (error.code === 'auth/invalid-email') {
+                console.log('That email address is invalid!');
+            }
+            console.error(error);
+        });
     };
     
     // Google Sign-In
@@ -33,7 +42,7 @@ document.addEventListener("DOMContentLoaded", event => {
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({
             prompt: 'select_account'
-        }
+        });
         signInWithPopup(auth, provider)
             .then(result => {
                 window.location.href='dashboard.html';
