@@ -31,6 +31,9 @@ document.addEventListener("DOMContentLoaded", event => {
     // Google Sign-In
     document.getElementById('googleLogin').onclick = function (){
         const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({
+            prompt: 'select_account'
+        }
         signInWithPopup(auth, provider)
             .then(result => {
                 window.location.href='dashboard.html';
