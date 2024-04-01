@@ -21,6 +21,14 @@ document.addEventListener("DOMContentLoaded", event => {
         const loginForm = document.querySelector('#login-account');
         const email = loginForm['email-login'].value;
         const password = loginForm['password-login'].value;
+        if (!loginForm['email-login'].value) {
+            alert('Please enter your email.');  // Replace alert with your error display method
+            return;
+        }
+        if (!loginForm['password-login'].value) {
+            alert('Please enter your password.');
+            return;
+        }
         signInWithEmailAndPassword(auth, email, password)
             .then(result => {
                 window.location.href='dashboard.html';
@@ -49,4 +57,10 @@ document.addEventListener("DOMContentLoaded", event => {
             })  
             .catch(console.log);
     };
+
+    document.getElementById('toggle-password').addEventListener('click', function() {
+        const passwordInput = document.getElementById('password-login');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+    });
 });
