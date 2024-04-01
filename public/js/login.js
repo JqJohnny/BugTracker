@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, setPersistence, browserSessionPersistence, signInWithEmailAndPassword, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 document.addEventListener("DOMContentLoaded", event => {
 
@@ -21,25 +21,26 @@ document.addEventListener("DOMContentLoaded", event => {
         const loginForm = document.querySelector('#login-account');
         const email = loginForm['email-login'].value;
         const password = loginForm['password-login'].value;
-        if (!loginForm['email-login'].value) {
-            alert('Please enter your email.');  // Replace alert with your error display method
+        const rememberMe = loginForm['remember-me'];
+        if (!email || !password) {
+            alert('Please enter your email and password.');
             return;
         }
-        if (!loginForm['password-login'].value) {
-            alert('Please enter your password.');
-            return;
-        }
+
         signInWithEmailAndPassword(auth, email, password)
             .then(result => {
+                if(!rememberMe.checked){
+                    setPersistence(auth, browserSessionPersistence)
+                }
                 window.location.href='dashboard.html';
             })
             .catch(error => {
             if (error.code === 'auth/user-not-found') {
-                console.log('There no user exist with that email');
+                alert('There no user exist with that email');
             }
         
             if (error.code === 'auth/invalid-email') {
-                console.log('That email address is invalid!');
+                alert('That email address is invalid!');
             }
             console.error(error);
         });
@@ -48,19 +49,24 @@ document.addEventListener("DOMContentLoaded", event => {
     // Google Sign-In
     document.getElementById('googleLogin').onclick = function (){
         const provider = new GoogleAuthProvider();
+        const rememberMe = document.getElementById('remember-me');
         provider.setCustomParameters({
             prompt: 'select_account'
         });
         signInWithPopup(auth, provider)
             .then(result => {
+                if(!rememberMe.checked){
+                    setPersistence(auth, browserSessionPersistence)
+                }
                 window.location.href='dashboard.html';
             })  
             .catch(console.log);
     };
 
-    document.getElementById('toggle-password').addEventListener('click', function() {
-        const passwordInput = document.getElementById('password-login');
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-    });
+    // document.getElementById('toggle-password').addEventListener('click', function() {
+    //     const passwordInput = document.getElementById('password-login');
+    //     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    //     passwordInput.setAttribute('type', type);
+    // });
+
 });
