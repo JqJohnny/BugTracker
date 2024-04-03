@@ -63,14 +63,14 @@ document.addEventListener("DOMContentLoaded", event => {
             .catch(console.log);
     };
 
-    const togglePassword = document.querySelector(".fa-eye");
+    const togglePassword = document.querySelector(".eye-icon");
     togglePassword.addEventListener('click', function() {
         const passwordInput = document.getElementById('password-login');
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
-        const toggle = togglePassword.className === 'fa fa-eye' ? 'fa-eye-slash' : 'fa-eye';
-        console.log(toggle);
-        togglePassword.classList.replace(togglePassword.className, toggle);
+        const toggle = togglePassword.className === 'fa fa-eye eye-icon' ? 'fa-eye-slash' : 'fa-eye';
+        console.log(togglePassword);
+        togglePassword.classList.replace(togglePassword.className.split(' ')[1], toggle);
     });
 
 });

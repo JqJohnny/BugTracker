@@ -1983,16 +1983,6 @@ textarea.form-control {
   margin-bottom: 1rem;
 }
 
-.form-group_container .icons{
-  position: absolute;
-}
-
-.form_container .icons i{
-  position: relative;
-  left: 440px;
-  top: 20px;
-}
-
 .form-text {
   display: block;
   margin-top: 0.25rem;
@@ -10921,14 +10911,11 @@ form.user .btn-user {
   padding: 0.75rem 1rem;
 }
 
-form.user .icons{
-  position: absolute;
-}
-
-form.user .icons i {
+.eye-icon {
+  float: right;
+  margin-right: 20px;
+  margin-top: -36px;
   position: relative;
-  left: 19rem;
-  top: 0.75rem;
   font-size: 1.4rem;
   cursor: pointer;
 }
