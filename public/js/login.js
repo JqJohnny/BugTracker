@@ -63,10 +63,12 @@ document.addEventListener("DOMContentLoaded", event => {
             .catch(console.log);
     };
 
-    // document.getElementById('toggle-password').addEventListener('click', function() {
-    //     const passwordInput = document.getElementById('password-login');
-    //     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    //     passwordInput.setAttribute('type', type);
-    // });
+    const togglePassword = document.querySelector(".fa-eye");
+    togglePassword.addEventListener('click', function() {
+        const passwordInput = document.getElementById('password-login');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+    });
 
 });
