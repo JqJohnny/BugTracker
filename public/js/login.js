@@ -68,7 +68,9 @@ document.addEventListener("DOMContentLoaded", event => {
         const passwordInput = document.getElementById('password-login');
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
-
+        const toggle = togglePassword.className === 'fa fa-eye' ? 'fa-eye-slash' : 'fa-eye';
+        console.log(toggle);
+        togglePassword.classList.replace(togglePassword.className, toggle);
     });
 
 });
