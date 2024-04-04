@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", event => {
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-
+    
     // Default Login Method
     document.getElementById('defaultLogin').onclick = function (){
         const loginForm = document.querySelector('#login-account');
@@ -26,9 +26,13 @@ document.addEventListener("DOMContentLoaded", event => {
             alert('Please enter your email and password.');
             return;
         }
-
         signInWithEmailAndPassword(auth, email, password)
             .then(result => {
+                if (!auth.currentUser.emailVerified){
+                    auth.signOut();
+                    alert('Please verify your email.');
+                    return;
+                }
                 if(!rememberMe.checked){
                     setPersistence(auth, browserSessionPersistence)
                 }

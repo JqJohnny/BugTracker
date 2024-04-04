@@ -15,29 +15,10 @@
       "enabled": true
     },
     "singleProjectMode": true,
-    "functions": {
-      "port": 5000
+    "firestore": {
+      "port": 8080
     }
   },
-  "functions": [
-    {
-      "source": "functions",
-      "codebase": "default"
-    },
-    {
-      "source": "bug-hunt",
-      "codebase": "bug-hunt",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log"
-      ],
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
-      ]
-    }
-  ],
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"

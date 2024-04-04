@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile, sendSignInLinkToEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 document.addEventListener("DOMContentLoaded", event => {
     const firebaseConfig = {
@@ -28,16 +28,26 @@ document.addEventListener("DOMContentLoaded", event => {
 
         if(password === confirmPassword){
             // Sign up the user
-            createUserWithEmailAndPassword(auth, email, password).then(cred => {
+            createUserWithEmailAndPassword(auth, email, password).then(async cred => {
                 const user = cred.user;
-                updateProfile(auth.currentUser, {
+                await sendEmailVerification(auth.currentUser)
+                .then(() => {
+                  const buttonElement = document.querySelector('.btn.btn-primary.btn-user.btn-block');
+                  buttonElement.textContent = 'Email Verification Link Sent.';
+                })
+                .catch(error => {
+                  console.error("Error sending email verification:", error);
+                });
+
+                await updateProfile(auth.currentUser, {
                     displayName: first + ' ' + last,
                   }).then(() => {
-                    window.location.href='login.html';                            
+                    setTimeout(() => {
+                      window.location.href='login.html';
+                    }, 3000);
                   }).catch((error) => {
                     console.log(error);
                   });
-
             }).catch(function(error) {
                 console.log(error);
             });

@@ -111,8 +111,6 @@ document.addEventListener("DOMContentLoaded", event => {
                     const bar = document.getElementById('progressBar');
                     bar.setAttribute('style', 'width: ' + percentage +'%')
                 }
-
-                
             }
             // Sign Out Button
             const signOut = document.getElementById("sign-out");
