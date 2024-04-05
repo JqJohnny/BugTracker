@@ -18,13 +18,15 @@ document.addEventListener("DOMContentLoaded", event => {
     const auth = getAuth(app);
     
     document.getElementById('reset-password').onclick = function() {
-        const email = document.getElementById('user-email');
+        const email = document.getElementById('user-email').value;
         sendPasswordResetEmail(auth, email)
             .then(() => {
-                console.log('Password reset email sent!');
-                // Add visual confirmation for the user
+                document.getElementById("reset-password").textContent = 'Email Sent.'
+
+                // Update the text content of the element
             })
             .catch((error) => {
+                alert('An error has occured. Please ensure email has been entered properly.');
                 // Handle errors and display them to the user
             });
     };
