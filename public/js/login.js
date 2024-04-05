@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", event => {
             .then(result => {
                 if (!auth.currentUser.emailVerified){
                     auth.signOut();
-                    alert('Please verify your email.');
+                    document.getElementById("unverified").style.display = "block";
                     return;
                 }
                 if(!rememberMe.checked){
