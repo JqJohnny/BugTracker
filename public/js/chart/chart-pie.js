@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, collection, setDoc, getDocs, doc, query, where, updateDoc} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
+import { getFirestore, collection, getDocs, query, where} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDu6ZEnmOvwj-n6VviffbrLgALNP5fnocI",
@@ -16,25 +16,21 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-let issues = 0;
-let bugs = 0;
-let featureRequests = 0;
-
-let low = 0;
-let medium = 0;
-let high = 0;
-let critical = 0;
-
-let newStat = 0;
-let inProgress = 0;
-let resolved = 0;
-
-
-
-
 // Signed in
 onAuthStateChanged(auth, (user) => {
   if(user){
+    let issues = 0;
+    let bugs = 0;
+    let featureRequests = 0;
+
+    let low = 0;
+    let medium = 0;
+    let high = 0;
+    let critical = 0;
+
+    let newStat = 0;
+    let inProgress = 0;
+    let resolved = 0;
     async function queryData() {
       const q = query(collection(db, "projects"), where("ownerUID", "==", user.uid));
       const querySnapshot = await getDocs(q);
