@@ -52,8 +52,6 @@ document.addEventListener("DOMContentLoaded", event => {
                 const docRef = doc(db, 'projects', projectID);
                 const docSnap = await getDoc(docRef);
 
-                let status;
-
                 // Set Title
                 const title = document.getElementById('title');
                 title.innerHTML = 'Project' + ' - ' + docSnap.data().title;
@@ -84,8 +82,6 @@ document.addEventListener("DOMContentLoaded", event => {
                             lastUpdate: Date(),
                             comments: ''
                         });
-
-
 
                         // Ticket Counter
                         const projectRef = doc(db, 'projects', docSnap.id);
