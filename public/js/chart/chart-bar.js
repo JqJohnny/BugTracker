@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, collection, setDoc, getDocs, doc, query, where, updateDoc} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
+import { getFirestore, collection, getDoc, getDocs, doc, query, where, updateDoc} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDu6ZEnmOvwj-n6VviffbrLgALNP5fnocI",
@@ -52,8 +52,13 @@ onAuthStateChanged(auth, (user) => {
       const querySnapshot = await getDocs(q);
       // Computes the tickets for all projects
       querySnapshot.forEach((docs) => {
-        console.log(docs.data());
-
+        const docRefs = doc(db, 'projects', docs.id);
+        const docSnaps = getDoc(docRefs);
+        const ticketQuery = query(collection(db, "projects", docSnaps.id, 'tickets'));
+        const ticketSnapshot = getDocs(ticketQuery);
+        ticketSnapshot.forEach((docss) => {
+          console.log(docss);
+        })
       });
 // Bar Chart Example
   var ctx = document.getElementById("ticketPeriodicalCounter");
