@@ -108,6 +108,15 @@ document.addEventListener("DOMContentLoaded", event => {
                 const q = query(collection(db, "projects", docSnap.id, 'tickets'));
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((docs) => {
+                // Format the dates to be more user-friendly
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+                let dateObject = new Date(docs.data().publish);
+                let formattedDate = dateObject.toLocaleString(undefined, options);
+                let ticketAge = addElement(formattedDate);
+                dateObject = new Date(docs.data().lastUpdate);
+                formattedDate = dateObject.toLocaleString(undefined, options);
+                let ticketModified = addElement(formattedDate);
+
                 const tickets = document.getElementById('tickets');
                 let ticketTitle = addElement(docs.data().title);
                 let ticketDescription = addElement(docs.data().description);
@@ -115,8 +124,6 @@ document.addEventListener("DOMContentLoaded", event => {
                 let ticketType = addElement(docs.data().type);
                 let ticketAuthor = addElement(docs.data().author);
                 let ticketStatus = addElement(docs.data().status);
-                let ticketAge = addElement(docs.data().publish);
-                let ticketModified = addElement(docs.data().lastUpdate);
                 let ticketComments = addElement(docs.data().comments);
                 let tableRow = document.createElement('tr');
                 tableRow.setAttribute('role', 'button');
