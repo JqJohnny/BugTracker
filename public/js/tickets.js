@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", event => {
                     setDocument();
                 });
 
-                // Add tickets
+                // Display tickets
                 const q = query(collection(db, "projects", docSnap.id, 'tickets'));
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((docs) => {
@@ -164,7 +164,6 @@ document.addEventListener("DOMContentLoaded", event => {
                 });
                 
                 // Submit Edit
-                // UPDATE WITH COUNTERS
                 // Take the value from edit ticket and save it, for use later
                 // Might be able to share, for optimization?
                 const editTicket = document.querySelector('#edit-ticket');
