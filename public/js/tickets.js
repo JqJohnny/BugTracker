@@ -169,29 +169,52 @@ document.addEventListener("DOMContentLoaded", event => {
                     else if(type === 'Feature Request') --typeArray[2];
                 }
                 });
+        
+                $.fn.dataTable.ext.type.detect.unshift(
+                    function ( sortByPriority ) {
+                        return (sortByPriority === 'Low' || sortByPriority === 'Medium' || sortByPriority === 'High' || sortByPriority === 'Critical') ?
+                            'ticket-priority' :
+                            null;
+                    }
+                );
+
+                $.fn.dataTable.ext.type.order['ticket-priority-pre'] = function ( sortByPriority ) {
+                    switch ( sortByPriority ) {
+                        case 'Low'      :   return 1;
+                        case 'Medium'   :   return 2;
+                        case 'High'     :   return 3;
+                        case 'Critical' :   return 4;
+                    }
+                    return 0;
+                };
+
+                $.fn.dataTable.ext.type.detect.unshift(
+                    function ( sortByType ) {
+                        return (sortByType === 'Bug' || sortByType === 'Issue' || sortByType === 'Feature Request') ?
+                            'ticket-type' :
+                            null;
+                    }
+                );
+
+                $.fn.dataTable.ext.type.order['ticket-type-pre'] = function ( sortByType ) {
+                    switch ( sortByType ) {
+                        case 'Bug'                 :   return 1;
+                        case 'Issue'               :   return 2;
+                        case 'Feature Request'     :   return 3;
+                    }
+                    return 0;
+                };
 
                 var table = $('#ticketTable').DataTable({
-                    columnDefs: [
-                        {
-                            targets: [2], // Index of the "Ticket Priority" column
-                            type: 'priority', // Custom sorting type
-                        }
-                    ]
+                    "columnDefs": [ {
+                        "type": "ticket-priority",
+                        "targets": 1
+                    },
+                    {
+                        "type": "ticket-type",
+                        "targets": 2
+                    } ]
                 });
-
-                $.fn.dataTable.ext.type.order['priority'] = function (settings, col) {
-                    return this.api().column(col, {order:'index'}).nodes().map(function (node, index) {
-                        var priorityValue = $(node).text().toLowerCase().trim();
-                        console.log(priorityValue);
-                        switch(priorityValue) {
-                            case 'low': return 0;
-                            case 'medium': return 1;
-                            case 'high': return 2;
-                            case 'critical': return 3;
-                            default: return -1; // For any other values
-                        }
-                    });
-                };
 
                 // Submit Edit
                 // Take the value from edit ticket and save it, for use later
