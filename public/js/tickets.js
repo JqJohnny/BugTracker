@@ -166,10 +166,33 @@ document.addEventListener("DOMContentLoaded", event => {
                     else if(priority === 'Critical') --priorityArray[3];
                     if(type === 'Bug') --typeArray[0];
                     else if(type === 'Issue') --typeArray[1];
-                    else if(type === 'Feature Request') --typeArray[2];         
+                    else if(type === 'Feature Request') --typeArray[2];
                 }
                 });
-                
+
+                var table = $('#ticketTable').DataTable({
+                    columnDefs: [
+                        {
+                            targets: [2], // Index of the "Ticket Priority" column
+                            type: 'priority', // Custom sorting type
+                        }
+                    ]
+                });
+
+                $.fn.dataTable.ext.type.order['priority'] = function (settings, col) {
+                    return this.api().column(col, {order:'index'}).nodes().map(function (node, index) {
+                        var priorityValue = $(node).text().toLowerCase().trim();
+                        console.log(priorityValue);
+                        switch(priorityValue) {
+                            case 'low': return 0;
+                            case 'medium': return 1;
+                            case 'high': return 2;
+                            case 'critical': return 3;
+                            default: return -1; // For any other values
+                        }
+                    });
+                };
+
                 // Submit Edit
                 // Take the value from edit ticket and save it, for use later
                 // Might be able to share, for optimization?
@@ -230,3 +253,6 @@ document.addEventListener("DOMContentLoaded", event => {
 
 
 });
+
+//fa fa-sort-up
+//fa fa-sort-alpha-up
