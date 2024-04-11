@@ -47,6 +47,39 @@ document.addEventListener("DOMContentLoaded", event => {
                 return element;
             }
 
+            function displayTicket(ticketData, ticketId) {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+                let dateObject = new Date(ticketData.publish);
+                let formattedDate = dateObject.toLocaleString(undefined, options);
+                let ticketAge = addElement(formattedDate);
+                dateObject = new Date(ticketData.lastUpdate);
+                formattedDate = dateObject.toLocaleString(undefined, options);
+                let ticketModified = addElement(formattedDate);
+            
+                const tickets = document.getElementById('tickets');
+                let ticketTitle = addElement(ticketData.title);
+                let ticketDescription = addElement(ticketData.description);
+                let ticketPriority = addElement(ticketData.priority);
+                let ticketType = addElement(ticketData.type);
+                let ticketAuthor = addElement(ticketData.author);
+                let ticketStatus = addElement(ticketData.status);
+                let ticketComments = addElement(ticketData.comments);
+
+                let tableRow = document.createElement('tr');
+                tableRow.setAttribute('role', 'button');
+                tableRow.setAttribute('id', ticketId);
+                tickets.appendChild(tableRow);
+                tableRow.appendChild(ticketTitle);
+                tableRow.appendChild(ticketDescription);
+                tableRow.appendChild(ticketPriority);
+                tableRow.appendChild(ticketType);
+                tableRow.appendChild(ticketAuthor);
+                tableRow.appendChild(ticketStatus);
+                tableRow.appendChild(ticketAge);
+                tableRow.appendChild(ticketModified);
+                tableRow.appendChild(ticketComments);
+            }
+
             async function loadDynamicElements() {
                 await retrieveData();
                 const projectID = localStorage.getItem('Project ID');
@@ -110,35 +143,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((docs) => {
                 // Format the dates to be more user-friendly
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-                let dateObject = new Date(docs.data().publish);
-                let formattedDate = dateObject.toLocaleString(undefined, options);
-                let ticketAge = addElement(formattedDate);
-                dateObject = new Date(docs.data().lastUpdate);
-                formattedDate = dateObject.toLocaleString(undefined, options);
-                let ticketModified = addElement(formattedDate);
-
-                const tickets = document.getElementById('tickets');
-                let ticketTitle = addElement(docs.data().title);
-                let ticketDescription = addElement(docs.data().description);
-                let ticketPriority = addElement(docs.data().priority);
-                let ticketType = addElement(docs.data().type);
-                let ticketAuthor = addElement(docs.data().author);
-                let ticketStatus = addElement(docs.data().status);
-                let ticketComments = addElement(docs.data().comments);
-                let tableRow = document.createElement('tr');
-                tableRow.setAttribute('role', 'button');
-                tableRow.setAttribute('id', docs.id);
-                tickets.appendChild(tableRow);
-                tableRow.appendChild(ticketTitle);
-                tableRow.appendChild(ticketDescription);
-                tableRow.appendChild(ticketPriority);
-                tableRow.appendChild(ticketType);
-                tableRow.appendChild(ticketAuthor);
-                tableRow.appendChild(ticketStatus);
-                tableRow.appendChild(ticketAge);
-                tableRow.appendChild(ticketModified);
-                tableRow.appendChild(ticketComments);
+                displayTicket(docs.data(), docs.id);
 
                 // Edit tickets
                 const editTicket = document.querySelector('#edit-ticket');
