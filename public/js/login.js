@@ -73,7 +73,6 @@ document.addEventListener("DOMContentLoaded", event => {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
         const toggle = togglePassword.className === 'fa fa-eye eye-icon' ? 'fa-eye-slash' : 'fa-eye';
-        console.log(togglePassword);
         togglePassword.classList.replace(togglePassword.className.split(' ')[1], toggle);
     });
 

@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", event => {
                             priorityCounter: priorityArray,
                             typeCounter: typeArray
                         });
-                        location.reload()
+                        location.reload();
                     }
                     setDocument();
                 });
@@ -239,6 +239,3 @@ document.addEventListener("DOMContentLoaded", event => {
 
 
 });
-
-//fa fa-sort-up
-//fa fa-sort-alpha-up
