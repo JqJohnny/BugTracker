@@ -86,6 +86,9 @@ export function buildDataTable() {
         // Insert the checkbox before the first child of the filter element
         filter.insertBefore(checkbox, firstChild);
         filter.insertBefore(label, firstChild);
+        
+        // Hide initially.
+        table.column(9).search('false').draw();
 
         $('#archiveCheckbox').on('change', function() {
             // Check if the checkbox is checked
@@ -98,6 +101,6 @@ export function buildDataTable() {
             }
         });
     }
-    
+
     archive()
 }
