@@ -228,19 +228,8 @@ th {
 
 }
 
-.th-wrapper {
-  position: relative;
-}
-
-.clickable-th {
-  cursor: pointer;
-}
-
-.fa-sort, .fa-sort-up, .fa-sort-down {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+#archiveTicketContainer {
+  float: right;
 }
 
 label {

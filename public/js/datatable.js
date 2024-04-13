@@ -65,4 +65,39 @@ export function buildDataTable() {
             "targets": 5
         } ]
     });
+
+    function archive(){
+        // Create a checkbox element
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'archiveCheckbox'; // Give it an ID if needed
+
+        // Create a label element
+        const label = document.createElement('label');
+        label.setAttribute('for', 'showArchiveCheckbox'); // Associate the label with the checkbox
+        label.style.padding = '0 5px'; // Adjust the amount of space as needed
+        label.textContent = 'Show Archive -'; // Set the label text
+
+        // Append the checkbox to the filter element
+        const filter = document.getElementById('ticketTable_filter');
+        // Get the first child of the filter element
+        const firstChild = filter.firstChild;
+
+        // Insert the checkbox before the first child of the filter element
+        filter.insertBefore(checkbox, firstChild);
+        filter.insertBefore(label, firstChild);
+
+        $('#archiveCheckbox').on('change', function() {
+            // Check if the checkbox is checked
+            if ($(this).is(':checked')) {
+                // If checked, filter to show archived items
+                table.column(9).search('true').draw();
+            } else {
+                // If not checked, remove the filter
+                table.column(9).search('false').draw();
+            }
+        });
+    }
+    
+    archive()
 }

@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 element.textContent = text;
                 return element;
             }
-
+            
             function displayTicket(ticketData, ticketId) {
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
                 let dateObject = new Date(ticketData.publish);
@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 let ticketAuthor = addElement(ticketData.author);
                 let ticketStatus = addElement(ticketData.status);
                 let ticketComments = addElement(ticketData.comments);
+                let ticketArchived = addElement(ticketData.archived);
 
                 let tableRow = document.createElement('tr');
                 tableRow.setAttribute('role', 'button');
@@ -78,6 +79,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 tableRow.appendChild(ticketAge);
                 tableRow.appendChild(ticketModified);
                 tableRow.appendChild(ticketComments);
+                tableRow.appendChild(ticketArchived);
             }
 
             async function loadDynamicElements() {
@@ -114,7 +116,8 @@ document.addEventListener("DOMContentLoaded", event => {
                             status: 'New',
                             publish: Date(),
                             lastUpdate: Date(),
-                            comments: ''
+                            comments: '',
+                            archived: false
                         });
 
                         // Ticket Counter
@@ -156,6 +159,7 @@ document.addEventListener("DOMContentLoaded", event => {
                     editTicket['ticket-type'].value = docs.data().type;
                     editTicket['description'].value = docs.data().description;
                     if (docs.data().comments != undefined) editTicket['comments'].value = docs.data().comments;
+                    editTicket['archiveTicket'].checked = docs.data().checked;
 
                     let status = editTicket['ticket-status'].value;
                     let priority = editTicket['ticket-priority'].value;
@@ -216,7 +220,7 @@ document.addEventListener("DOMContentLoaded", event => {
                             status: status,
                             lastUpdate: Date(),
                             comments: editTicket['comments'].value,
-                            
+                            archived: editTicket['archiveTicket'].checked
                         });
                     // Possible Change, don't reload create a function for update? innerhtml etc.
                         location.reload();

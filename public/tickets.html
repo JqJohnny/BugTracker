@@ -394,6 +394,7 @@
                                             <th>Publish Date</th>
                                             <th>Last Updated</th>
                                             <th>Comments</th>
+                                            <th data-visible="false">Archived</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tickets">
@@ -510,6 +511,10 @@
             <form id="edit-ticket" autocomplete="off">
             <div class="form-group">
             <label for="editTicketTitle">Edit Ticket Title</label>
+            <div id="archiveTicketContainer" style="float: right;">
+                <input type="checkbox" id="archiveTicket"/>
+                <label for="archiveTicket">Archive Ticket</label>
+            </div>
             <input type="text" class="form-control" id="ticket-title" aria-describedby="title", placeholder="Enter Ticket Title" required>
             </div>
             <div class="form-group">
@@ -549,7 +554,6 @@
             <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
             <button class="btn btn-primary" type="submit">Submit Edit</button>
-            <button class="btn btn-danger fa fa-trash-alt" type="submit"></button>
             </div>
             </form>
             </div>
