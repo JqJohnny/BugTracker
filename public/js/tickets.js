@@ -88,6 +88,22 @@ document.addEventListener("DOMContentLoaded", event => {
                 const docRef = doc(db, 'projects', projectID);
                 const docSnap = await getDoc(docRef);
 
+                // Update a subdocument such as tickets.
+                // async function updateTicketsArchive(docSnap) {
+                //     const q = query(collection(db, "projects", docSnap.id, 'tickets'));
+                //     const querySnapshot = await getDocs(q);
+                    
+                //     querySnapshot.forEach(async (docs) => {
+                //     const ticketRef = doc(db, "projects", docSnap.id, 'tickets', docs.id); // Get the reference to the document
+                //       console.log(docs.data());
+                //       await updateDoc(ticketRef, {
+                //         archived: false
+                //       });
+                //     });
+                // }
+                //updateTicketsArchive(docSnap);
+
+
                 // Set Title
                 const title = document.getElementById('title');
                 title.innerHTML = 'Project' + ' - ' + docSnap.data().title;
