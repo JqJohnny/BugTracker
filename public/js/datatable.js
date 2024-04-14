@@ -63,8 +63,10 @@ export function buildDataTable() {
         {
             "type": "ticket-status",
             "targets": 5
-        } ]
-    });
+        } ],
+        language: {
+            infoFiltered: ''
+        }    });
 
     function archive(){
         // Create a checkbox element
