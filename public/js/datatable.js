@@ -76,7 +76,7 @@ export function buildDataTable() {
         const label = document.createElement('label');
         label.setAttribute('for', 'showArchiveCheckbox'); // Associate the label with the checkbox
         label.style.padding = '0 5px'; // Adjust the amount of space as needed
-        label.textContent = 'Show Archive -'; // Set the label text
+        label.textContent = 'View Archive -'; // Set the label text
 
         // Append the checkbox to the filter element
         const filter = document.getElementById('ticketTable_filter');
