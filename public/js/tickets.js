@@ -171,6 +171,7 @@ document.addEventListener("DOMContentLoaded", event => {
                     if (docs.data().comments != undefined) editTicket['comments'].value = docs.data().comments;
                     editTicket['archiveTicket'].checked = docs.data().archived;
 
+                    // Needed for tracking original value
                     let status = editTicket['ticket-status'].value;
                     let priority = editTicket['ticket-priority'].value;
                     let type = editTicket['ticket-type'].value;
