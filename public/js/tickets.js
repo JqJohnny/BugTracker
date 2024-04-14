@@ -49,37 +49,31 @@ document.addEventListener("DOMContentLoaded", event => {
             
             function displayTicket(ticketData, ticketId) {
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-                let dateObject = new Date(ticketData.publish);
-                let formattedDate = dateObject.toLocaleString(undefined, options);
-                let ticketAge = addElement(formattedDate);
-                dateObject = new Date(ticketData.lastUpdate);
-                formattedDate = dateObject.toLocaleString(undefined, options);
-                let ticketModified = addElement(formattedDate);
-            
-                const tickets = document.getElementById('tickets');
-                let ticketTitle = addElement(ticketData.title);
-                let ticketDescription = addElement(ticketData.description);
-                let ticketPriority = addElement(ticketData.priority);
-                let ticketType = addElement(ticketData.type);
-                let ticketAuthor = addElement(ticketData.author);
-                let ticketStatus = addElement(ticketData.status);
-                let ticketComments = addElement(ticketData.comments);
-                let ticketArchived = addElement(ticketData.archived);
+                let ticketAge = new Date(ticketData.publish).toLocaleString(undefined, options);
+                let ticketModified = new Date(ticketData.lastUpdate).toLocaleString(undefined, options);
+                let elementParams = [
+                    ticketData.title,
+                    ticketData.description,
+                    ticketData.priority,
+                    ticketData.type,
+                    ticketData.author,
+                    ticketData.status,
+                    ticketAge,
+                    ticketModified,
+                    ticketData.comments,
+                    ticketData.archived
+                ];
 
+                const tickets = document.getElementById('tickets');
                 let tableRow = document.createElement('tr');
                 tableRow.setAttribute('role', 'button');
                 tableRow.setAttribute('id', ticketId);
                 tickets.appendChild(tableRow);
-                tableRow.appendChild(ticketTitle);
-                tableRow.appendChild(ticketDescription);
-                tableRow.appendChild(ticketPriority);
-                tableRow.appendChild(ticketType);
-                tableRow.appendChild(ticketAuthor);
-                tableRow.appendChild(ticketStatus);
-                tableRow.appendChild(ticketAge);
-                tableRow.appendChild(ticketModified);
-                tableRow.appendChild(ticketComments);
-                tableRow.appendChild(ticketArchived);
+
+                elementParams.forEach(param => {
+                    let element = addElement(param); // Call addElement function with parameter
+                    tableRow.appendChild(element);
+                });
             }
 
             async function loadDynamicElements() {
