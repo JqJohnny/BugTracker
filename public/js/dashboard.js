@@ -116,6 +116,7 @@ document.addEventListener("DOMContentLoaded", event => {
             signOut.onclick = () => auth.signOut();
         } else {
             // Redirect signed out users to login page
+            localStorage.clear();
             window.location.href='login.html';
         }
         
