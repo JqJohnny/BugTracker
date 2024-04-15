@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, collection, setDoc, getDocs, doc, query, where, updateDoc} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
 import { getPerformance} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-performance.js";
+import { buildDataTable} from "./projectDataTable.js";
 
 document.addEventListener("DOMContentLoaded", event => {
 
@@ -25,9 +26,9 @@ document.addEventListener("DOMContentLoaded", event => {
         if(user){
             // Display Username
             document.getElementById('username').innerHTML = user.displayName;
-
-            let unresolved = 0;
+            
             // Tracks all projects
+            let unresolved = 0;
             let ticketTotal = 0;
             let ticketsComplete = 0;
             // Create Project Button
@@ -57,49 +58,47 @@ document.addEventListener("DOMContentLoaded", event => {
                 setDocument();
             });
             
-            function addDiv(text, className){
-                let element = document.createElement('div');
+            function addElement(text){
+                let element = document.createElement('td');
                 element.textContent = text;
-                element.className = className;
                 return element;
             }
-            
 
             // Display Projects
             async function displayProject() {
                 const q = query(collection(db, "projects"), where("ownerUID", "==", user.uid));
                 const querySnapshot = await getDocs(q);
                 // Computes the tickets for all projects
-                querySnapshot.forEach((docs) => {
-                let ticketsFiled = docs.data().ticketsFiled;
-                let ticketsResolved = docs.data().statusCounter[2];
-                unresolved += docs.data().statusCounter[1] + docs.data().statusCounter[0];
-                ticketTotal += ticketsFiled;
-                ticketsComplete += ticketsResolved;
                 const projects = document.getElementById('projects');
-                let div = addDiv(null, 'card-body d-flex flex-row align-items-center justify-content-between');
-                div.setAttribute('role', 'button');
-                div.setAttribute('id', docs.id);
-                let title = addDiv(docs.data().title, 'm-0 font-weight-bold text-primary w-25');
-                let contributors = addDiv(docs.data().contributors, 'm-0 font-weight-bold text-primary w-25');
-                let description = addDiv(docs.data().description, 'm-0 font-weight-bold text-primary w-100');
-                projects.appendChild(div);
-                div.appendChild(title);
-                div.appendChild(contributors);
-                div.appendChild(description);
-                document.getElementById(docs.id).onclick = async function (){
-                    const selectRef = doc(db, 'projects', docs.id);
-                    await updateDoc(selectRef, {
-                    selected: true
-                });
+                querySnapshot.forEach((docs) => {
+                    let title = addElement(docs.data().title);
+                    let contributors = addElement(docs.data().contributors);
+                    let description = addElement(docs.data().description);
+                    let tableRow = document.createElement('tr');
+                    tableRow.setAttribute('role', 'button');
+                    tableRow.setAttribute('id', docs.id);
+                    projects.appendChild(tableRow);
+                    tableRow.appendChild(title);
+                    tableRow.appendChild(description);
+                    tableRow.appendChild(contributors);
+                    let ticketsFiled = docs.data().ticketsFiled;
+                    let ticketsResolved = docs.data().statusCounter[2];
+                    unresolved += docs.data().statusCounter[1] + docs.data().statusCounter[0];
+                    ticketTotal += ticketsFiled;
+                    ticketsComplete += ticketsResolved;
+                    document.getElementById(docs.id).onclick = async function (){
+                        const selectRef = doc(db, 'projects', docs.id);
+                        await updateDoc(selectRef, {
+                        selected: true
+                    });
                 location.href = "tickets.html";
                 }
                 });
                 dashboard();
+                buildDataTable()
             }
 
             displayProject();
-
             function dashboard() {
                 const unresolvedTickets = document.getElementById("unresolved-tickets");
                 unresolvedTickets.innerHTML = unresolved;

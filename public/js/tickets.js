@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, collection, getDoc, getDocs, doc, query, where, updateDoc, setDoc, addDoc} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
 import { getPerformance} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-performance.js";
-import { buildDataTable} from "./datatable.js";
+import { buildDataTable} from "./ticketDataTable.js";
 
 document.addEventListener("DOMContentLoaded", event => {
 
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 }
                 });
                 
-                // From Local Datatable.js
+                // From ticketDatatable.js
                 buildDataTable();
 
                 // Submit Edit
