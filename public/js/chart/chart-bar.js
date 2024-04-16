@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import {getFirestore, collection, getDoc, getDocs, doc, query, where, updateDoc} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {getFirestore, collection, getDocs, doc, query, where} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDu6ZEnmOvwj-n6VviffbrLgALNP5fnocI",
@@ -67,11 +67,15 @@ onAuthStateChanged(auth, (user) => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((ticket) => {
         let dateObject = new Date(ticket.data().publish);
+        let yearIndex = dateObject.getFullYear();
+        console.log(yearIndex);
         let monthIndex = dateObject.getMonth(); // This will return the month index (0-indexed)
         ticketsPerMonth[monthIndex]++;
       });
     }
+
     queryProjects();
+
     // Bar Chart Example
     function barChart(ticketsMonth) {
     var ctx = document.getElementById("ticketPeriodicalCounter");
