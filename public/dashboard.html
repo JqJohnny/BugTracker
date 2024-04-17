@@ -673,7 +673,7 @@ rel="stylesheet">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                  <h5 class="modal-title">Ready to Leave?</h5>
                   <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                   </button>
@@ -708,10 +708,16 @@ rel="stylesheet">
             <label for="contributors">Project Contributors</label>
             <input type="text" class="form-control" id="contributors" placeholder="People that can access your project.">
             </div>
-            <div class="form-group" >
+            <div class="form-group">
             <label for="projectDescription">Project Description</label>
             <textarea class="form-control" id="description" placeholder="Enter project description." required></textarea>
             </div>
+            <div class="form-group">
+                <select class="form-control" id="project-visibility">
+                    <option id='Public' value="Public" data-toggle="tooltip" data-placement="bottom" title="Only contributors can edit!">Public - Visible to everyone</option>
+                    <option id='Private' value="Private">Private - Visible only to contributors</option>
+                </select>
+            </div>     
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
             <button class="btn btn-primary" type="submit">Create Project</button>
             </form>

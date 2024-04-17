@@ -68,7 +68,7 @@ onAuthStateChanged(auth, (user) => {
       querySnapshot.forEach((ticket) => {
         let dateObject = new Date(ticket.data().publish);
         let yearIndex = dateObject.getFullYear();
-        console.log(yearIndex);
+        //console.log(yearIndex);
         let monthIndex = dateObject.getMonth(); // This will return the month index (0-indexed)
         ticketsPerMonth[monthIndex]++;
       });
