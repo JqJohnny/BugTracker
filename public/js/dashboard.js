@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 const title = newProjectForm['project-title'].value;
                 const contributors = user.displayName + ' ' + newProjectForm['contributors'].value;
                 const description = newProjectForm['description'].value;
-
+                const visibility = newProjectForm['project-visibility'].value;
                 async function setDocument(){
                     await setDoc(doc(collection(db, 'projects')), {
                         title: title,
@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", event => {
                         description: description,
                         lastModified: Date(),
                         selected: false,
+                        visibility: visibility,
                         ticketsFiled: 0,
                         statusCounter: [0, 0, 0], // New, In Progress, Resolved
                         priorityCounter: [0, 0, 0, 0], // Low, Medium, High, Critical
