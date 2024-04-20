@@ -88,23 +88,22 @@ document.addEventListener("DOMContentLoaded", event => {
                         await updateDoc(selectRef, {
                         selected: true
                     });
+                    location.href = "tickets.html";
                     }
                 }
                 var q = query(collection(db, "projects"), where("ownerUID", "==", user.uid));
                 var querySnapshot = await getDocs(q);
-                // Computes the tickets for all projects
                 const publicProjects = document.getElementById('publicProjects');
-                // Build Private Projects
+                // Build Public Projects
                 querySnapshot.forEach((docs) => {
                     buildTable(docs, publicProjects);
                 });
                 
-                q = query(collection(db, "projects"), where("visiblity", "==", true));
+                q = query(collection(db, "projects"), where("visibility", "==", "Public"));
                 querySnapshot = await getDocs(q);
-                // Computes the tickets for all projects
+                // Build Private Projects
                 const privateProjects = document.getElementById('privateProjects');
                 querySnapshot.forEach((docs) => {
-                    console.log(docs.data());
                     buildTable(docs, privateProjects);
                 });
                 dashboard();
