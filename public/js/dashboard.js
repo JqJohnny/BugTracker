@@ -67,11 +67,7 @@ document.addEventListener("DOMContentLoaded", event => {
 
             // Display Projects
             async function displayProject() {
-                const q = query(collection(db, "projects"), where("ownerUID", "==", user.uid));
-                const querySnapshot = await getDocs(q);
-                // Computes the tickets for all projects
-                const projects = document.getElementById('projects');
-                querySnapshot.forEach((docs) => {
+                function buildTable(docs, projects){
                     let title = addElement(docs.data().title);
                     let contributors = addElement(docs.data().contributors);
                     let description = addElement(docs.data().description);
@@ -92,8 +88,24 @@ document.addEventListener("DOMContentLoaded", event => {
                         await updateDoc(selectRef, {
                         selected: true
                     });
-                location.href = "tickets.html";
+                    }
                 }
+                var q = query(collection(db, "projects"), where("ownerUID", "==", user.uid));
+                var querySnapshot = await getDocs(q);
+                // Computes the tickets for all projects
+                const publicProjects = document.getElementById('publicProjects');
+                // Build Private Projects
+                querySnapshot.forEach((docs) => {
+                    buildTable(docs, publicProjects);
+                });
+                
+                q = query(collection(db, "projects"), where("visiblity", "==", true));
+                querySnapshot = await getDocs(q);
+                // Computes the tickets for all projects
+                const privateProjects = document.getElementById('privateProjects');
+                querySnapshot.forEach((docs) => {
+                    console.log(docs.data());
+                    buildTable(docs, privateProjects);
                 });
                 dashboard();
                 buildDataTable()
